@@ -53,6 +53,7 @@ import HomeNavBar from "./copns/home-nav-bar.vue";
         img {
             height: 20px;
             padding-bottom: 6px;
+
         }
 
     }
