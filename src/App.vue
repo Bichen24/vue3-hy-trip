@@ -1,15 +1,18 @@
 <template>
    <div class="app">
-    <router-view></router-view>
-    <tab-bar></tab-bar>
+      <router-view></router-view>
+      <!-- 在route中设置meta值来进行条件判断，
+         有这个值就返回true，
+         没有就返回undefined取反就是true； -->
+      <!-- <tab-bar v-if="!route.meta.hideTabBar"></tab-bar> -->
+      <tab-bar></tab-bar>
    </div>
 </template>
 <script setup>
 import TabBar from "@/components/tab-bar/tab-bar.vue"
-
+import { useRoute } from "vue-router";
+const route = useRoute();
 </script>
 
 
-<style scoped>
-
-</style>
+<style scoped></style>
