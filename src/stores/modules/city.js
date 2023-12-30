@@ -3,6 +3,7 @@ import { getCityAll } from "@/services";
 const useCityStore = defineStore("city", {
   state: () => ({
     allCities: {},
+    localCity: { cityName: "广州" },
   }),
   actions: {
     async fetchAllCitiesData() {

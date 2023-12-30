@@ -2,7 +2,7 @@
     <div class="home">
         <HomeNavBar></HomeNavBar>
         <div class="banner">
-            <img src="@\assets\img\home\banner.webp" alt="">
+            <img src="@\assets\img\home\banner.webp">
         </div>
         <HomeSearchBox></HomeSearchBox>
     </div>
