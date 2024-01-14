@@ -3,15 +3,22 @@
         <h2>酒店精选</h2>
         <ul>
             <template v-for="(item, index) in houseList" :key='item.data.houseId'>
-                <li>
-                    <div v-if="item.discoveryContentType === 9">
-                        v9
+                <div v-if="item.discoveryContentType === 9" class="nith">
+                    <img :src="item.data.image.url">
+                    <div class="all">
+                        <span class="info">{{ item.data.summaryText }}</span>
+                        <span class="location">{{ item.data.location }}</span>
+                        <van-rate class="rate" :modelValue="Number(item.data.commentScore)" readonly allow-half />
                     </div>
-                    <div v-else-if="item.discoveryContentType === 3">v9</div>
-                </li>
+                </div>
+                <div v-else-if="item.discoveryContentType === 3">
+                    <img :src="item.data.image.url">
+                    <span class="info">{{ item.data.summaryText }}</span>
+                    <span class="location">{{ item.data.location }}</span>
+                    <van-rate class="rate" :modelValue="Number(item.data.commentScore)" readonly allow-half />
+                </div>
             </template>
         </ul>
-        <button @click=" homeStore.fetchHouseListData">加载更多</button>
     </div>
 </template>
 
@@ -24,7 +31,41 @@ const { houseList } = storeToRefs(homeStore)
 
 <style lang="less" scoped>
 .content {
-    overflow: auto;
+    ul {
+        display: flex;
+        flex-wrap: wrap;
 
+        div {
+            display: flex;
+            flex-wrap: wrap;
+            width: 50%;
+
+            img {
+                width: 100%;
+                flex: 1;
+            }
+
+            span {
+                width: 100%;
+            }
+
+            .rate {
+                width: 100%;
+            }
+
+        }
+
+        .nith {
+            .all {
+                position: relative;
+                left: 2vw;
+                top: -15vw;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+        }
+    }
 }
 </style>
