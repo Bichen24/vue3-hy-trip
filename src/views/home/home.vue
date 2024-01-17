@@ -8,7 +8,6 @@
         <HomeCategory />
         <SearchBar v-if="isShowSearch" />
         <HomeContent />
-
     </div>
 </template>
 
@@ -25,7 +24,7 @@ const homeStore = useHomeStore()
 homeStore.fetchHotSuggestData()
 homeStore.fetchCategoryData()
 homeStore.fetchHouseListData()
-const { isBottom, isShowSearchBar } = useScroll();
+const { scrollTop, isShowSearchBar, isBottom } = useScroll();
 watch(isBottom, (newValue, oldValue) => {
     if (newValue) {
         homeStore.fetchHouseListData().then(() => {

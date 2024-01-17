@@ -1,5 +1,6 @@
 <template>
    <div class="app">
+      <Loading />
       <tab-bar v-if="!route.meta.hideTabBar"></tab-bar>
       <router-view></router-view>
       <!-- 在route中设置meta值来进行条件判断，
@@ -10,6 +11,7 @@
 </template>
 <script setup>
 import TabBar from "@/components/tab-bar/tab-bar.vue"
+import Loading from "@/components/loading/loading.vue"
 import { useRoute } from "vue-router";
 const route = useRoute();
 </script>

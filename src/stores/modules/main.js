@@ -9,6 +9,7 @@ const useMianStore = defineStore("main", {
     startDate: startDate,
     endDate: endDate,
     staycount: "1",
+    isLoading: false,
   }),
 });
 export default useMianStore;

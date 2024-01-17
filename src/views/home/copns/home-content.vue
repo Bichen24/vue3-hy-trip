@@ -2,8 +2,8 @@
     <div class="content">
         <h2>酒店精选</h2>
         <ul>
-            <template v-for="(item, index) in houseList" :key='item.data.houseId'>
-                <div v-if="item.discoveryContentType === 9" class="nith">
+            <template v-for="item in houseList" :key='item.data.houseId'>
+                <div v-if="item.discoveryContentType === 9" class="nith" @click="houseClick(item.data.houseId)">
                     <img :src="item.data.image.url">
                     <div class="all">
                         <span class="info">{{ item.data.summaryText }}</span>
@@ -11,7 +11,7 @@
                         <van-rate class="rate" :modelValue="Number(item.data.commentScore)" readonly allow-half />
                     </div>
                 </div>
-                <div v-else-if="item.discoveryContentType === 3">
+                <div v-else-if="item.discoveryContentType === 3" @click="houseClick(item.data.houseId)">
                     <img :src="item.data.image.url">
                     <span class="info">{{ item.data.summaryText }}</span>
                     <span class="location">{{ item.data.location }}</span>
@@ -23,10 +23,15 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import useHomeStore from '@/stores/modules/home.js';
 import { storeToRefs } from 'pinia';
 const homeStore = useHomeStore()
 const { houseList } = storeToRefs(homeStore)
+const router = useRouter()
+const houseClick = (houseId) => {
+    router.push('/detail/' + houseId)
+}
 </script>
 
 <style lang="less" scoped>
