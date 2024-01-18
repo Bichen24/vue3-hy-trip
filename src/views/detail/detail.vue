@@ -1,10 +1,10 @@
 <template>
     <div class="detail-box" ref="detailRef">
-        <tabControl :titles="names" v-if="true" class="tabs" @tabItemClick="itemclick" />
+        <tabControl :titles="names" v-if="true" class="tabs" @tabItemClick="itemclick" ref="tabControlRef" />
         <div class="detail" v-if="mainPart" v-memo="[mainPart]">
             <van-nav-bar title="房屋详情" left-text="旅途" left-arrow @click-left="onClickLeft" class="navbar" />
             <detailSwipe :swipeData="mainPart.topModule.housePicture.housePics"></detailSwipe>
-            <detailContent name="描述" :ref="getrefelm" :contentData="mainPart.topModule" v-if="mainPart" />
+            <detailContent name="描述" :ref="getrefelm" :contentData="mainPart.topModule" />
             <detailFacility name="服务" :ref="getrefelm"
                 :facilityData="mainPart.dynamicModule.facilityModule.houseFacility" />
             <detailLandlord name="房东" :ref="getrefelm" :landlordData="mainPart.dynamicModule.landlordModule">
@@ -50,20 +50,41 @@ const { scrollTop } = useScroll(detailRef)
 const sectionElm = ref({})
 const names = ref([])
 function getrefelm(value) {
-    if (value && value.$el) {
+    if (value) {
         const name = value.$el.getAttribute("name")
         names.value.push(name)
         sectionElm.value[name] = value.$el
     }
 }
-
+let isClick = false
+let disinstanc = 0
 function itemclick(index) {
-    console.log();
+    isClick = true
+    disinstanc = sectionElm.value[names.value[index]].offsetTop - 44
     detailRef.value.scrollTo({
-        top: sectionElm.value[names.value[index]].offsetTop - 44,
+        top: disinstanc,
         behavior: "smooth"
     })
+
 }
+
+const tabControlRef = ref()
+watch(scrollTop, (n) => {
+    if (n == disinstanc) isClick = false
+    if (isClick) return
+    const elms = Object.values(sectionElm.value)
+    const values = []
+    elms.forEach(value => { values.push(value.offsetTop) });
+    let index = values.length - 1
+    for (let i = 0; i < values.length; i++) {
+        if (n < values[i] - 44) {
+            index = i - 1
+            break;
+        }
+    }
+    tabControlRef.value?.changeCurrentIndex(index)
+})
+
 </script>
 
 <style lang="less" scoped>

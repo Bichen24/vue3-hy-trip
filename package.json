@@ -22,6 +22,9 @@
   "devDependencies": {
     "@vant/auto-import-resolver": "^1.0.2",
     "@vitejs/plugin-vue": "^4.5.2",
+    "postcss": "^8.4.33",
+    "postcss-px-to-viewport": "^1.1.1",
+    "rollup-plugin-postcss": "^4.0.2",
     "unplugin-auto-import": "^0.17.3",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.0.10"

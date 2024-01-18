@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" ref="homeRef">
         <HomeNavBar></HomeNavBar>
         <div class="banner">
             <img src="@\assets\img\home\banner.webp">
@@ -10,7 +10,11 @@
         <HomeContent />
     </div>
 </template>
-
+<script>
+export default {
+    name: "home",
+};
+</script>
 <script setup>
 import useScroll from "@/hooks/useScroll.js";
 import useHomeStore from '@/stores/modules/home.js';
@@ -24,7 +28,9 @@ const homeStore = useHomeStore()
 homeStore.fetchHotSuggestData()
 homeStore.fetchCategoryData()
 homeStore.fetchHouseListData()
-const { scrollTop, isShowSearchBar, isBottom } = useScroll();
+
+const homeRef = ref()
+const { scrollTop, isShowSearchBar, isBottom } = useScroll(homeRef);
 watch(isBottom, (newValue, oldValue) => {
     if (newValue) {
         homeStore.fetchHouseListData().then(() => {
@@ -35,12 +41,19 @@ watch(isBottom, (newValue, oldValue) => {
 const isShowSearch = computed(() => {
     return isShowSearchBar.value
 })
+onActivated(() => {
+    homeRef.value?.scrollTo({
+        top: scrollTop.value
+    })
+})
 </script>
 
 <style lang="less" scoped>
 .home {
     padding-bottom: 13vw;
     overflow: auto;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 .banner {

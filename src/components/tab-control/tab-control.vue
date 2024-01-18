@@ -21,11 +21,14 @@ export default {
       currentIndex: 0
     }
   },
-  emits: ["tabItemClick"],
+  emits: ["tabItemClick", "changeCurrentIndex"],
   methods: {
     itemClick(index) {
       this.currentIndex = index
       this.$emit("tabItemClick", index)
+    },
+    changeCurrentIndex(index) {
+      this.currentIndex = index
     }
   }
 }
